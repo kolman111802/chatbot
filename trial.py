@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 @st.cache_resource
 def init():
     retriever = prepare_retirever()
-    MODEL_ID = "Qwen/Qwen2.5-3B"
+    MODEL_ID = "Qwen/Qwen2.5-0.5B"
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
     model = AutoModelForCausalLM.from_pretrained(MODEL_ID)
     #llm_json_mode = prepare_llm_json()
