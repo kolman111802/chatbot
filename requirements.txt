@@ -4,3 +4,5 @@ langchain_community
 zhconv
 langchain_ollama
 tiktoken
+sentence-transformers
+torch
