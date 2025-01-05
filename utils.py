@@ -8,6 +8,7 @@ from zhconv import convert
 from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, SystemMessage
 import json
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 def prepare_retirever():
     file_path = "data/"

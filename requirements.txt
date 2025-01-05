@@ -6,3 +6,4 @@ langchain_ollama
 tiktoken
 sentence-transformers
 torch
+sentence_transformers

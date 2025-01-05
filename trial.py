@@ -1,12 +1,17 @@
 import streamlit as st
 from utils import prepare_retirever, prepare_llm_json, prepare_llm, generate_response, check_hallucination, answer_grader, prose_writer, tidy_answer, stringize_answer
 from zhconv import convert
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 @st.cache_resource
 def init():
     retriever = prepare_retirever()
-    llm_json_mode = prepare_llm_json()
-    llm = prepare_llm()
+    MODEL_ID = "Qwen/Qwen2.5-3B"
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+    model = AutoModelForCausalLM.from_pretrained(MODEL_ID)
+    #llm_json_mode = prepare_llm_json()
+    #llm = prepare_llm()
+
     return retriever, llm_json_mode, llm
 
 retriever, llm_json_mode, llm = init()
