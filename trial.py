@@ -12,9 +12,11 @@ def init():
     #llm_json_mode = prepare_llm_json()
     #llm = prepare_llm()
 
-    return retriever, llm_json_mode, llm
+    #return retriever, llm_json_mode, llm
+    return retriever, model
 
-retriever, llm_json_mode, llm = init()
+#retriever, llm_json_mode, llm = init()
+retriever, model = init()
 
 st.title('Chat with your documents')
 
@@ -23,9 +25,11 @@ prompt = st.text_area('請把問題寫在下列空格',)
 if st.button('詢問'):
     if prompt:
         with st.spinner('Generating...'):
-            response, docs_txt = generate_response(retriever, llm_json_mode, prompt)
+            response, docs_txt = generate_response(retriever, model, prompt)
             with st.expander('相關文件'):
                 st.write(docs_txt)
+            st.write(response)
+            '''
             hallucination_score_list = check_hallucination(llm_json_mode, docs_txt, response)['binary_score']
             point_list = tidy_answer(response, hallucination_score_list)
             #usage_score_list = answer_grader(prompt, llm_json_mode, point_list)
@@ -37,3 +41,4 @@ if st.button('詢問'):
                 st.write(convert(prose,'zh-hk'))
             else:
                 st.write('文件似乎沒有相關內容。你可以嘗試以其他方式發問。')
+            '''
