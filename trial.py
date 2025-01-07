@@ -32,13 +32,13 @@ if ask_button:
                     st.write(hallucination_score_list)
                 #point_list = tidy_answer(response, hallucination_score_list)
                 usage_score_list = answer_grader(inference(), prompt, response)
-                with st.expander('是否符合標準'):
+                with st.expander('是否符合問題要求'):
                     st.write(usage_score_list)
             point_list = tidy_answer(response, hallucination_score_list, usage_score_list)
             if point_list:
                 with col1:
                     with st.expander('點列形式'):
-                        st.write(stringize_answer(point_list))
+                        st.write(convert(stringize_answer(point_list), 'zh-hk'))
                 prose = prose_writer(inference(), point_list)
                 with col2:
                     st.write(convert(prose,'zh-hk'))
