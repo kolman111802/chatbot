@@ -17,8 +17,8 @@ col1, col2 = st.columns(2)
 with col1:
     prompt = st.text_area('請把問題寫在下列空格', key='prompt')
 
-with col2:
-    if st.button('詢問'):
+if st.button('詢問'):
+    with col2:
         if prompt:
             with st.spinner('Generating...'):
                 response, docs_txt = generate_response(retriever, inference(), prompt)
@@ -42,3 +42,5 @@ with col2:
                     st.write(convert(prose,'zh-hk'))
                 else:
                     st.write('文件似乎沒有相關內容。你可以嘗試以其他方式發問。')
+        else:
+            st.write('請輸入問題。')
