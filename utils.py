@@ -81,6 +81,7 @@ def generate_response(retriever, llm_json_mode, question):
     docs_txt = "\n\n".join(doc.page_content for doc in docs)
     rag_prompt_formatted = rag_prompt.format(context=docs_txt, question=question)
     completion = llm_json_mode(system_message = "你是香港財政司司長陳茂波先生, 你擅長於問答任務。", human_message = rag_prompt_formatted)
+    print(text)
     text = completion.choices[0].message.content
     if "json" in text:
         result = json.loads(text[7:-3].strip())["answer"]
@@ -121,6 +122,7 @@ def check_hallucination(llm_json_mode, docs_txt, answer):
         human_message = hallucination_grader_prompt_formatted
     )
     text = completion.choices[0].message.content
+    print(text)
     if "json" in text:
         result = json.loads(text[7:-3].strip())["binary_score"]
     else:
@@ -160,6 +162,7 @@ def answer_grader(llm_json_mode, prompt, answer):
         system_message = answer_grader_instructions,
         human_message = answer_grader_prompt_formatted
     )
+    print(text)
     text = completion.choices[0].message.content
     if "json" in text:
         result = json.loads(text[7:-3].strip())["binary_score"]
