@@ -19,10 +19,10 @@ with col1:
     ask_button = st.button('詢問')
 
 if ask_button:
-    with col2:
-        if prompt:
-            with st.spinner('Generating...'):
-                response, docs_txt = generate_response(retriever, inference(), prompt)
+    if prompt:
+        with st.spinner('Generating...'):
+            response, docs_txt = generate_response(retriever, inference(), prompt)
+            with col1:
                 with st.expander('相關文件'):
                     st.write(docs_txt)
                 with st.expander('回答'):
@@ -34,8 +34,8 @@ if ask_button:
                 usage_score_list = answer_grader(inference(), prompt, response)
                 with st.expander('是否符合標準'):
                     st.write(usage_score_list)
-                #graded_point_list = tidy_answer(point_list, usage_score_list)
-                point_list = tidy_answer(response, hallucination_score_list, usage_score_list)
+            point_list = tidy_answer(response, hallucination_score_list, usage_score_list)
+            with col2:
                 if point_list:
                     with st.expander('點列形式'):
                         st.write(stringize_answer(point_list))
@@ -43,5 +43,5 @@ if ask_button:
                     st.write(convert(prose,'zh-hk'))
                 else:
                     st.write('文件似乎沒有相關內容。你可以嘗試以其他方式發問。')
-        else:
-            st.write('請輸入問題。')
+    else:
+        st.write('請輸入問題。')
