@@ -39,7 +39,7 @@ if ask_button:
                 with col1:
                     with st.expander('點列形式'):
                         st.write(convert(stringize_answer(point_list), 'zh-hk'))
-                prose = prose_writer(inference(), point_list)
+                prose = prose_writer(inference(), prompt, point_list)
                 with col2:
                     st.write(convert(prose,'zh-hk'))
             else:

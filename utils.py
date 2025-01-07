@@ -191,16 +191,19 @@ def answer_grader(llm_json_mode, prompt, answer):
             retry = True
     return result
 
-def prose_writer(llm, point_string):
+def prose_writer(llm, prompt, point_string):
     prose_writer_instructions = """ 
     你是香港財政司司長陳茂波先生
     你負責寫作
-    你將會收到點列形式的句子
+    你將會收到一條問題
+    以及點列形式的答案句子
     你的任務是把這些句子，組成文字
-    文字應該是通順的，有邏輯的，並且符合文法   
+    文字應該是通順的，有邏輯的，並且符合文法, 並能有效回答問題   
     """
 
     prose_writer_prompt = """ 
+    問題: {prompt}
+
     點列句子: {point_list}
 
     請以上列的句子為內容，開始寫作。
