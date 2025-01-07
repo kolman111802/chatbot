@@ -163,8 +163,8 @@ def answer_grader(llm_json_mode, prompt, answer):
         system_message = answer_grader_instructions,
         human_message = answer_grader_prompt_formatted
     )
-    print(text)
     text = completion.choices[0].message.content
+    print(text)
     if "json" in text:
         result = json.loads(text[7:-3].strip())["binary_score"]
     else:
