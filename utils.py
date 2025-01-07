@@ -30,7 +30,7 @@ def prepare_retirever():
             docs_list.append(doc)
 
     text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
-        #separator = "\n",
+        separator = "\n",
         chunk_size = 20, 
         chunk_overlap = 20
     )
