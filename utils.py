@@ -78,7 +78,11 @@ def generate_response(retriever, llm_json_mode, question):
     docs_txt = "\n\n".join(doc.page_content for doc in docs)
     rag_prompt_formatted = rag_prompt.format(context=docs_txt, question=question)
     completion = llm_json_mode(system_message = "你是香港財政司司長陳茂波先生, 你擅長於問答任務。", human_message = rag_prompt_formatted)
-    result = json.loads(completion.choices[0].message.content[7:-3].strip())["answer"]
+    text = completion.choices[0].message.content
+    if "json" in text:
+        result = json.loads(text[7:-3].strip())["binary_score"]
+    else:
+        result = json.loads(text)["binary_score"]
     return result, docs_txt
 
 def check_hallucination(llm_json_mode, docs_txt, answer):
@@ -117,7 +121,7 @@ def check_hallucination(llm_json_mode, docs_txt, answer):
     if "json" in text:
         result = json.loads(text[7:-3].strip())["binary_score"]
     else:
-        result = json.loads(text[7:-3])["binary_score"]
+        result = json.loads(text)["binary_score"]
     return result
 
 def answer_grader(llm_json_mode, prompt, answer):
@@ -157,7 +161,7 @@ def answer_grader(llm_json_mode, prompt, answer):
     if "json" in text:
         result = json.loads(text[7:-3].strip())["binary_score"]
     else:
-        result = json.loads(text[7:-3])["binary_score"]
+        result = json.loads(text)["binary_score"]
     return result
 
 def prose_writer(llm, point_string):
