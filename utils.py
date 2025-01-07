@@ -124,16 +124,23 @@ def check_hallucination(llm_json_mode, docs_txt, answer):
     hallucination_grader_prompt_formatted = hallucination_grader_prompt.format(
         documents=docs_txt, generation=answer, number = len(answer)
     )
-    completion = llm_json_mode(
-        system_message = hallucination_grader_instructions,
-        human_message = hallucination_grader_prompt_formatted
-    )
-    text = completion.choices[0].message.content
-    print(text)
-    if "json" in text:
-        result = json.loads(text[7:-3].strip())["binary_score"]
-    else:
-        result = json.loads(text)["binary_score"]
+    retry = True
+    while retry == True:
+        try:
+            completion = llm_json_mode(
+                system_message = hallucination_grader_instructions,
+                human_message = hallucination_grader_prompt_formatted
+            )
+            text = completion.choices[0].message.content
+            print(text)
+            if "json" in text:
+                result = json.loads(text[7:-3].strip())["binary_score"]
+            else:
+                result = json.loads(text)["binary_score"]
+            retry = False
+        except Exception as e:
+            print(e)
+            retry = True
     return result
 
 def answer_grader(llm_json_mode, prompt, answer):
