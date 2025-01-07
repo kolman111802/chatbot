@@ -10,7 +10,7 @@ def init():
 
 retriever = init()
 
-st.title('Chat with your documents')
+#st.title('Chat with your documents')
 
 prompt = st.text_area('請把問題寫在下列空格',)
 
