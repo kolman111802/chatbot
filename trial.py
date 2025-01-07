@@ -15,7 +15,7 @@ retriever = init()
 col1, col2 = st.columns(2)
 
 with col1:
-    prompt = st.text_area('請把問題寫在下列空格', key='prompt')
+    prompt = st.text_area('請把問題寫在下列空格', key='prompt', value='黃金交易在香港有什麼發展空間？')
     ask_button = st.button('詢問')
 
 if ask_button:
