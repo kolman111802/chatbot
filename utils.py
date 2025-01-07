@@ -90,6 +90,7 @@ def generate_response(retriever, llm_json_mode, question):
                 result = json.loads(text[7:-3].strip())["answer"]
             else:
                 result = json.loads(text)["answer"] 
+            retry = False
         except Exception as e:
             print(e)
             retry = True
