@@ -209,6 +209,7 @@ def prose_writer(llm, prompt, point_string):
     請以上列的句子為內容，開始寫作。
     """
     prose_writer_prompt_formatted = prose_writer_prompt.format(
+        prompt = prompt,
         point_list = point_string
     )
     completion = llm(
