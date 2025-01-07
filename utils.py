@@ -16,7 +16,10 @@ def prepare_retirever():
         "blog20241006.txt",
         "blog20241013.txt",
         "blog20241020.txt",
-        "blog20241027.txt"
+        "blog20241103.txt",
+        "blog20241110.txt",
+        "blog20241117.txt",
+        "blog20241124.txt"
     ]
 
     docs_list = []
