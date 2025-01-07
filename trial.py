@@ -35,13 +35,15 @@ if ask_button:
                 with st.expander('是否符合標準'):
                     st.write(usage_score_list)
             point_list = tidy_answer(response, hallucination_score_list, usage_score_list)
-            with col2:
-                if point_list:
+            if point_list:
+                with col1:
                     with st.expander('點列形式'):
                         st.write(stringize_answer(point_list))
-                    prose = prose_writer(inference(), point_list)
+                prose = prose_writer(inference(), point_list)
+                with col2:
                     st.write(convert(prose,'zh-hk'))
-                else:
+            else:
+                with col2:
                     st.write('文件似乎沒有相關內容。你可以嘗試以其他方式發問。')
     else:
         st.write('請輸入問題。')
