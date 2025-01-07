@@ -81,6 +81,7 @@ def generate_response(retriever, llm_json_mode, question):
     docs_txt = "\n\n".join(doc.page_content for doc in docs)
     rag_prompt_formatted = rag_prompt.format(context=docs_txt, question=question)
     completion = llm_json_mode(system_message = "你是香港財政司司長陳茂波先生, 你擅長於問答任務。", human_message = rag_prompt_formatted)
+    print(completion)
     text = completion.choices[0].message.content
     print(text)
     if "json" in text:
