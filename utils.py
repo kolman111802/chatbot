@@ -172,16 +172,23 @@ def answer_grader(llm_json_mode, prompt, answer):
     answer_grader_prompt_formatted = answer_grader_prompt.format(
         prompt=prompt, answer=answer, number = len(answer)
     )
-    completion = llm_json_mode(
-        system_message = answer_grader_instructions,
-        human_message = answer_grader_prompt_formatted
-    )
-    text = completion.choices[0].message.content
-    print(text)
-    if "json" in text:
-        result = json.loads(text[7:-3].strip())["binary_score"]
-    else:
-        result = json.loads(text)["binary_score"]
+    retry = True
+    while retry == True:
+        try:
+            completion = llm_json_mode(
+                system_message = answer_grader_instructions,
+                human_message = answer_grader_prompt_formatted
+            )
+            text = completion.choices[0].message.content
+            print(text)
+            if "json" in text:
+                result = json.loads(text[7:-3].strip())["binary_score"]
+            else:
+                result = json.loads(text)["binary_score"]
+            retry = False
+        except Exception as e:
+            print(e)
+            retry = True
     return result
 
 def prose_writer(llm, point_string):
