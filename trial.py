@@ -12,7 +12,7 @@ retriever = init()
 
 #st.title('Chat with your documents')
 
-prompt = st.text_area('請把問題寫在下列空格', key='prompt', height=200)
+prompt = st.text_area('請把問題寫在下列空格', key='prompt')
 
 if st.button('詢問'):
     if prompt:
