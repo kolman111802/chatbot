@@ -12,19 +12,7 @@ retriever = init()
 
 #st.title('Chat with your documents')
 
-st.markdown(
-    """
-    <style>
-    .big-font {
-        font-size:20px !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 prompt = st.text_area('請把問題寫在下列空格', key='prompt', height=200)
-st.markdown('<p class="big-font">請把問題寫在下列空格</p>', unsafe_allow_html=True)
 
 if st.button('詢問'):
     if prompt:
