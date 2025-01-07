@@ -31,7 +31,7 @@ def prepare_retirever():
 
     text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
         #separator = "\n",
-        chunk_size = 100, 
+        chunk_size = 40, 
         chunk_overlap = 20
     )
 
