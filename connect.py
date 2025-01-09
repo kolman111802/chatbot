@@ -15,7 +15,7 @@ def inference():
 
     def query(system_message, human_message):
         completion = client.chat.completions.create(
-            model="qwen-turbo", # Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
+            model="deepseek-chat", # Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
             messages=[
                 {'role': 'system', 'content': system_message},
                 {'role': 'user', 'content': human_message}],
