@@ -19,7 +19,8 @@ with col1:
     ask_button = st.button('詢問')
 
 if ask_button:
-    if prompt:
+    if prompt[:5] == 'data:':
+        prompt = prompt[5:]
         with st.spinner('Generating...'):
             response, docs_txt = generate_response(retriever, inference(), prompt)
             with col1:
