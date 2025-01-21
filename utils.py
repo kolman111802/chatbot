@@ -76,24 +76,23 @@ def generate_response(retriever, llm_json_mode, question):
     返回的 JSON 應只有一個鍵值對, 鍵為"answer", "answer"的值應該是一個列表, 當中列表每一個值是字串, 對應每一點答案, 值的數量不限。
 
     """
-    retry = True
-    while retry == True:
-        try:
-            docs = retriever.invoke(question)
-            docs_txt = "\n\n".join(doc.page_content for doc in docs)
-            rag_prompt_formatted = rag_prompt.format(context=docs_txt, question=question)
-            completion = llm_json_mode(system_message = "你是香港財政司司長陳茂波先生, 你擅長於問答任務。", human_message = rag_prompt_formatted)
-            print(completion)
-            text = completion.choices[0].message.content
-            print(text)
-            if "json" in text:
-                result = json.loads(text[7:-3].strip())["answer"]
-            else:
-                result = json.loads(text)["answer"] 
-            retry = False
-        except Exception as e:
-            print(e)
-            retry = True
+    docs = retriever.invoke(question)
+    docs_txt = "\n\n".join(doc.page_content for doc in docs)
+    rag_prompt_formatted = rag_prompt.format(context=docs_txt, question=question)
+    completion = llm_json_mode(system_message = "你是香港財政司司長陳茂波先生, 你擅長於問答任務。", human_message = rag_prompt_formatted)
+    print(completion)
+    text = completion.choices[0].message.content
+    print(text)
+    if "json" in text:
+        result = json.loads(text[7:-3].strip())["answer"]
+    else:
+        result = json.loads(text)["answer"] 
+    #completion = client.chat.completions.create(
+    #    model = "deepseek-chat", # Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
+    #    messages=[
+    #    {'role': 'system', 'content': addresser_instruction},
+    #    {'role': 'user', 'content': addresser_prompt_formatted}],
+    #)
     return result, docs_txt
 
 def check_hallucination(llm_json_mode, docs_txt, answer):
