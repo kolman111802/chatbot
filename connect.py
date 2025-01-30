@@ -18,7 +18,11 @@ def inference():
             model="deepseek-chat", # Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
             messages=[
                 {'role': 'system', 'content': system_message},
-                {'role': 'user', 'content': human_message}],
+                {'role': 'user', 'content': human_message}
+                ],
+            response_format = {
+                'type': 'json_object'
+            }
         )
         return completion
 
